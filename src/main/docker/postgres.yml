@@ -1,0 +1,11 @@
+version: '2'
+services:
+  cadastro-postgresql:
+    image: postgres:11.5
+    container_name: cadastro-postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cadastro
+    ports:
+      - 5432:5432

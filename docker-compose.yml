@@ -1,0 +1,15 @@
+version: '2'
+services:
+  app:
+    image: 'cadastro:latest'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - cadastro-postgresql
+    ports:
+    - 8080:8080
+  cadastro-postgresql:
+    extends:
+      file: src/main/docker/postgres.yml
+      service: cadastro-postgresql
