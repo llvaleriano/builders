@@ -2,9 +2,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://cadastro-postgresql.postgres.database.azure.com/cadastro
-    username: postgres@cadastro-postgresql
-    password: Builders2021
+    url: jdbc:postgresql://localhost:5432/cadastro
+    username: postgres
+    password: postgres
     hikari:
       pool-name: Hikari
       auto-commit: false

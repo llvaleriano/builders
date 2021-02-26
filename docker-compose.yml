@@ -1,15 +1,9 @@
 version: '2'
 services:
   app:
-    image: 'cadastro:latest'
+    image: pocbuildersregistry.azurecr.io/builders-app:v2
     build:
       context: .
-    container_name: app
-    depends_on:
-      - cadastro-postgresql
+    container_name: builders-app
     ports:
     - 8080:8080
-  cadastro-postgresql:
-    extends:
-      file: src/main/docker/postgres.yml
-      service: cadastro-postgresql
