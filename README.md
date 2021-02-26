@@ -11,6 +11,8 @@ As classes nesse pacote são anotadas com `@Entity` e algumas outras anotações
 
 ### A API
 Os endpoints estão definidos no pacote `br.com.leovaleriano.cadastro.web.rest`.
+A documentação da API está acessível a partir de:
+http://localhost:8080/swagger-ui/
 
 Os requisitos passados foram:
 
@@ -35,6 +37,7 @@ O endpoint retorna o cadastro completo do usuário e além disso adiciona uma se
 - Como o modelo é bastante simples, para evitar a criação de objetos desnecessários, a própria entidade está sendo enviada como retorno para o chamador do endpoint. Nesse caso, para retornar a idade do cliente foi implementado um método getIdade() na entidade Cliente. Esse modelo também segue as recomendações indicadas no Livro Domain Driven Design, de Eric Evans.
 
 6. Documente sua API e também disponibilize um arquivo Postman para fácil utilização da API.
+
 
 
 ### Dados
