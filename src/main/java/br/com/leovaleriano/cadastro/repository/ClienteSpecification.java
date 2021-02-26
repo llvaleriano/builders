@@ -1,29 +1,42 @@
 package br.com.leovaleriano.cadastro.repository;
 
 import br.com.leovaleriano.cadastro.domain.Cliente;
-import br.com.leovaleriano.cadastro.domain.Cliente_;
-import br.com.leovaleriano.cadastro.domain.Endereco;
-import br.com.leovaleriano.cadastro.domain.Endereco_;
+import br.com.leovaleriano.cadastro.domain.Sexo;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 
-public class ClienteSpecification{
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.Locale;
 
-    public static Specification<Cliente> nome(String nome) {
-        return (root, criteriaQuery, criteriaBuilder) ->
-                StringUtils.hasLength(nome) ?
-                    criteriaBuilder.like(root.get(Cliente_.nome), "%" + nome + "%") :
-                    criteriaBuilder.conjunction();
+@AllArgsConstructor
+public class ClienteSpecification implements Specification<Cliente> {
+
+    private final SearchCriteria criteria;
+
+    @Override
+    public Predicate toPredicate(Root<Cliente> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+
+        if (criteria.getKey().startsWith("endereco")) {
+            String nomeAtributo = criteria.getKey().replace("endereco.", "");
+
+            if (criteria.getOperation().equals(":")) {
+                return builder.like(builder.upper(root.get("endereco").get(nomeAtributo)), "%" + criteria.getValue().toUpperCase(Locale.ROOT) + "%");
+            }
+        }
+
+        if (criteria.getKey().equalsIgnoreCase("sexo")) {
+            Sexo sexo = Sexo.valueOf(criteria.getValue());
+            return builder.equal(root.get("sexo"), sexo);
+        }
+
+        if (criteria.getOperation().equals(":")) {
+            return builder.like(builder.upper(root.get(criteria.getKey())), "%" + criteria.getValue().toUpperCase(Locale.ROOT) + "%");
+        }
+
+        return null;
     }
 
-    public static Specification<Cliente> email(String email) {
-        return (root, criteriaQuery, criteriaBuilder) ->
-                StringUtils.hasLength(email) ?
-                    criteriaBuilder.like(root.get(Cliente_.email), "%" + email + "%") :
-                    criteriaBuilder.conjunction();
-    }
-
-    public static Specification<Endereco> cidade(String cidade) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get(Endereco_.cidade), cidade);
-    }
 }

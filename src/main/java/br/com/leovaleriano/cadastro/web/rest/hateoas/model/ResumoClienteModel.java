@@ -1,4 +1,4 @@
-package br.com.leovaleriano.cadastro.web.rest.model;
+package br.com.leovaleriano.cadastro.web.rest.hateoas.model;
 
 import br.com.leovaleriano.cadastro.domain.Sexo;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,7 +21,7 @@ import java.time.Period;
 @EqualsAndHashCode(callSuper = false)
 @Relation(collectionRelation = "clientes", itemRelation = "cliente")
 @JsonInclude(Include.NON_NULL)
-public class ClienteDTOModel extends RepresentationModel<ClienteDTOModel> {
+public class ResumoClienteModel extends RepresentationModel<ResumoClienteModel> {
 
     private Integer id;
     private String nome;
