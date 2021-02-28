@@ -37,8 +37,16 @@ O endpoint retorna o cadastro completo do usuário e além disso adiciona uma se
 - Como o modelo é bastante simples, para evitar a criação de objetos desnecessários, a própria entidade está sendo enviada como retorno para o chamador do endpoint. Nesse caso, para retornar a idade do cliente foi implementado um método getIdade() na entidade Cliente. Esse modelo também segue as recomendações indicadas no Livro Domain Driven Design, de Eric Evans.
 
 6. Documente sua API e também disponibilize um arquivo Postman para fácil utilização da API.
+- A documentação da API está disponível em `http://localhost:8080/swagger-ui/`
+- O arquivo `Builders.postman_collection.json` que se encontra na raiz do projeto pode ser usado para fazer os testes da API.
 
+### Testes
+Foram feitos testes em alguns métodos da API apenas para demonstrar como os testes devem ser executados. Como se trata de uma prova de conceito, não tive o objetivo de alcançar uma cobertura ótima para os testes.
 
+Execute os comandos: 
+`mvn clean test` e na sequencia `mvn jacoco:report`.
+
+O relatório de testes estará disponível em `[diretorio do projeto]/target/site/jacoco/index.html`.
 
 ### Dados
 A criação das tabelas e a carga dos dados iniciais da aplicação está sob responsabilidade do liquibase. Dessa forma é possível manter um controle fino de cada alteração do banco de dados. Os arquivos de configuração do liquibase estão no diretório `src/main/resources/db/changelog`. 
@@ -59,6 +67,6 @@ mvn clean package
 ```
 2. Em seguida inicie a aplicação usando docker-compose
 ```
-docker-compose up
+ docker-compose -f docker-compose-local.yml up
 ```
-3. Importe o arquivo XXX no postman e execute as chamadas 
+ 

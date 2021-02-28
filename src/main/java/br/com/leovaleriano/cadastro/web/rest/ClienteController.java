@@ -123,10 +123,10 @@ public class ClienteController {
     @Operation(summary = "Alterar cliente",
             description = "Altera todos os dados do cliente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "20o", description = "O cliente alterado com sucesso"),
+            @ApiResponse(responseCode = "200", description = "O cliente alterado com sucesso"),
             @ApiResponse(responseCode = "500", description = "Retorna uma mensagem de erro detalhada"),
     })
-    @RequestMapping(name = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping("/{id}")
     public ResponseEntity<ClienteModel> alterar(@PathVariable Integer id, @RequestBody final Cliente cliente) {
         cliente.setId(id);
         clienteService.salvar(cliente);
@@ -139,7 +139,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "200", description = "Telefone alterado com sucesso"),
             @ApiResponse(responseCode = "500", description = "Retorna uma mensagem de erro detalhada"),
     })
-    @RequestMapping(name = "/{idCliente}/telefone", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping("/{idCliente}/telefone")
     public ResponseEntity<ClienteModel> alterarTelefone(@PathVariable Integer idCliente, @RequestBody Telefone telefone) {
         clienteService.alterarTelefone(telefone, idCliente);
         Cliente cliente = clienteService.buscarClientePorId(idCliente);
