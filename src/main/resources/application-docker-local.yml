@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/cadastro
+    url: jdbc:postgresql://cadastro-postgresql:5432/cadastro
     username: postgres
     password: postgres
 

@@ -61,12 +61,34 @@ Também é usado o Docker-compose para permitir que a aplicação seja disponibi
 
 ## Executar a aplicação
 Para executar a aplicação vá para o diretório raiz do projeto e
-1. empacote o projeto usando maven
+* empacote o projeto usando maven
 ```
 mvn clean package
 ```
-2. Em seguida inicie a aplicação usando docker-compose
-```
- docker-compose -f docker-compose-local.yml up
-```
+
+* **Executar via maven:** 
+1. Se você já tiver executado alguma vez esses comandos, é acoselhável excluir o container docker para evitar confitos. Execute o comando:
+   `docker rm cadastro-postgresql`
+   
+2. A aplicação depende do banco de dados postgresql, para iniciá-lo execute o comando:
+   `docker-compose -f src/main/docker/postgres.yml up -d`
+   
+3. Execute a aplicação através do comando:     
+`mvn spring-boot:run -Dspring-boot.run.profiles=local`
+   
+4. Acesse a aplicação via postman, importe o arquivo de testes e execute alguns comandos.
+
+5. Remova o container docker:
+   `docker-compose -f src/main/docker/postgres.yml down`
+
+* **Executar via docker-compose:**
+1. Se você já tiver executado alguma vez esses comandos, é acoselhável excluir o container docker para evitar confitos. Execute o comando: `docker rm cadastro-postgresql`
+
+2. Inicie a aplicação via docker-compose:   
+`docker-compose -f docker-compose-local.yml up -d`
+
+3. Acesse a aplicação via postman, importe o arquivo de testes e execute alguns comandos.
+
+4. Remova o container docker:
+   `docker-compose -f src/main/docker/postgres.yml down`
  
