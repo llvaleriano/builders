@@ -35,13 +35,13 @@
 			"response": []
 		},
 		{
-			"name": "Novo cliente",
+			"name": "Inserir cliente com data de nascimento futura - deve tratar o erro",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nome\": \"Erick Dantas\",\n    \"email\": \"mail@mail.com\",\n    \"nascimento\": \"2013-03-20\"\n}",
+					"raw": "{\n    \"nome\": \"John Connor\",\n    \"email\": \"john@fromfuture.com\",\n    \"nascimento\": \"2032-03-20\",\n    \"sexo\": \"MASC\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,13 +63,13 @@
 			"response": []
 		},
 		{
-			"name": "Inserir cliente com data de nascimento futura - deve tratar o erro",
+			"name": "Inserir novo cliente",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nome\": \"Erick Dantas\",\n    \"email\": \"mail@mail.com\",\n    \"nascimento\": \"2013-03-20\"\n}",
+					"raw": "{\n    \"nome\": \"Leonardo Valeriano\",\n    \"email\": \"leovaleriano@fakemail.com\",\n    \"nascimento\": \"1977-02-22\",\n    \"sexo\": \"MASC\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -85,6 +85,26 @@
 					"path": [
 						"api",
 						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar cliente por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clientes/51",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes",
+						"51"
 					]
 				}
 			},
@@ -97,7 +117,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "        {\n            \"id\": 1,\n            \"nome\": \"Vanessa Dantas\",\n            \"email\": \"mail@gmail.com\",\n            \"nascimento\": \"1983-08-25\",\n            \"sexo\": null,\n            \"endereco\": null,\n            \"telefone\": null\n        }",
+					"raw": "{\n    \"nome\": \"Leonardo Valeriano\",\n    \"email\": \"leovaleriano@fakemail.com\",\n    \"nascimento\": \"1977-02-22\",\n    \"sexo\": \"MASC\",\n    \"endereco\": {\n        \"logradouro\": \"Rua principal\",\n        \"numeroEndereco\": \"100\",\n        \"complemento\": \"Apt\",\n        \"bairro\": \"Centro\",\n        \"cidade\": \"Brasília\",\n        \"uf\": \"DF\",\n        \"cep\": \"70000000\"\n    },\n    \"telefone\": {\n        \"ddd\": \"61\",\n        \"numeroTelefone\": \"955551234\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,7 +125,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/clientes/1",
+					"raw": "localhost:8080/api/clientes/51",
 					"host": [
 						"localhost"
 					],
@@ -113,19 +133,28 @@
 					"path": [
 						"api",
 						"clientes",
-						"1"
+						"51"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Buscar cliente por id",
+			"name": "Atualizar somente telefone",
 			"request": {
-				"method": "GET",
+				"method": "PATCH",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ddd\": \"61\",\n    \"numeroTelefone\": \"912345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8080/api/clientes/1",
+					"raw": "localhost:8080/api/clientes/51/telefone",
 					"host": [
 						"localhost"
 					],
@@ -133,9 +162,114 @@
 					"path": [
 						"api",
 						"clientes",
-						"1"
+						"51",
+						"telefone"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar por atributos: nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clientes?search=nome:leo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "nome:leo"
+						}
+					]
+				},
+				"description": "A pesquisa por atributos combina os valores passados no parametro \"search\" seguindo o formato key:value."
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar por atributos: sexo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clientes?search=sexo:MASC",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "sexo:MASC"
+						}
+					]
+				},
+				"description": "A pesquisa por atributos combina os valores passados no parametro \"search\" seguindo o formato key:value."
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar por atributos: nome e sexo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clientes?search=nome:leo,sexo:MASC",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "nome:leo,sexo:MASC"
+						}
+					]
+				},
+				"description": "A pesquisa por atributos combina os valores passados no parametro \"search\" seguindo o formato key:value."
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar por atributos: sexo e bairro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clientes?search=endereco.bairro:sudoeste,sexo:MASC",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clientes"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "endereco.bairro:sudoeste,sexo:MASC"
+						}
+					]
+				},
+				"description": "A pesquisa por atributos combina os valores passados no parametro \"search\" seguindo o formato key:value."
 			},
 			"response": []
 		},
@@ -157,47 +291,6 @@
 						"clientes",
 						"1"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Atualizar telefone",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"ddd\": \"61\",\n    \"numeroTelefone\": \"996918633\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/api/clientes/1/telefone",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"clientes",
-						"1",
-						"telefone"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Pesquisar por atributos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
 				}
 			},
 			"response": []
